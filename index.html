@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fleeting Words</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/a2.gif">
+    <link rel="stylesheet" href="http://localhost:63342/chat-room/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+<!--    <div class="loader"><b>Fleeting Words</b></div>-->
+</div>
+
+
+<audio id="msg-receive-online">
+    <source src="https://docs.google.com/uc?export=download&id=1yQNdZAtIjIv_IxPZGD9LwTdnZy1Obfvs" type="audio/mp3" >
+    <!--    <source src="sound/cityRuinNier.mp3" type="audio/mpeg">-->
+</audio>
+
+<audio id="msg-receive-sound">
+    <source src="https://docs.google.com/uc?export=download&id=1oV_MPno3VKQZ9L_U2bZspbZzaUP8xu-G" type="audio/mp3" >
+    <!--    <source src="sound/cityRuinNier.mp3" type="audio/mpeg">-->
+</audio>
+
+<audio id="msg-receive-disconnected">
+    <source src="https://docs.google.com/uc?export=download&id=1KqnA6YFQ10c-ma7AASUGy9cXEAZvb6vj" type="audio/mp3" >
+    <!--    <source src="sound/cityRuinNier.mp3" type="audio/mpeg">-->
+</audio>
+
+
+<div class="container clearfix">
+    <div class="people-list" id="people-list">
+        <div class="search">
+            <input type="text" placeholder="search"/>
+            <i class="fa fa-search"></i>
+        </div>
+        <ul class="list" style="list-style: none">
+            <span><b> Nhóm chat - (1)</b></span>
+            <li class="clearfix list-online">
+                <img class="avatar-on-the-list"
+                     src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/tumblr_p96i9gKKbI1xut6buo1_1280.gif"
+                     alt="avatar"/>
+                <div class="about">
+                    <div class="name">Phòng chung <i class="fas fa-home"></i></div>
+                    <div class="status">
+                        <i class="fa fa-circle online"></i> Trực tuyến
+                    </div>
+                </div>
+            </li>
+            <br>
+            <span><b> Mọi người - (<span id="count-user-online">0</span>)</b></span>
+            <div id="all-user-list">
+
+            </div>
+
+        </ul>
+
+        <div class="search logout">
+            <button onclick="logout()" class="logoutBtn">Đăng xuất <i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </div>
+
+    <div class="chat">
+        <div class="chat-header clearfix">
+            <img class="avatar-chat" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/tumblr_p96i9gKKbI1xut6buo1_1280.gif"
+                 alt="avatar"/>
+
+            <div class="chat-about">
+                <div class="chat-with">Phòng chung <i class="fas fa-home"></i></div>
+                <div class="chat-num-messages">Nơi tất cả mọi người chia sẻ- Phòng hội nghị ;)</div>
+            </div>
+            <i class="fa fa-star"></i>
+        </div> <!-- end chat-header -->
+
+        <div class="chat-history" id="chat-history">
+            <ul style="list-style: none">
+                <li class="clearfix">
+                    <div class="message-data align-right">
+                        <span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
+                        <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
+                    </div>
+                    <div class="message other-message float-right">
+                        Hi Vincent, how are you? How is the project coming along?
+                    </div>
+                </li>
+
+                <li>
+                    <div class="message-data">
+                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                        <span class="message-data-time">10:12 AM, Today</span>
+                    </div>
+                    <div class="message my-message">
+                        Are we meeting today? Project has been already finished and I have results to show you.
+                    </div>
+                </li>
+
+                <li class="clearfix">
+                    <div class="message-data align-right">
+                        <span class="message-data-time">10:14 AM, Today</span> &nbsp; &nbsp;
+                        <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
+
+                    </div>
+                    <div class="message other-message float-right">
+                        Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced
+                        any problems at the last phase of the project?
+                    </div>
+                </li>
+
+                <li>
+                    <div class="message-data">
+                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                        <span class="message-data-time">10:20 AM, Today</span>
+                    </div>
+                    <div class="message my-message">
+                        Actually everything was fine. I'm very excited to show this to our team.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="message-data">
+                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                        <span class="message-data-time">10:31 AM, Today</span>
+                    </div>
+                    <i class="fa fa-circle online"></i>
+                    <i class="fa fa-circle online" style="color: #AED2A6"></i>
+                    <i class="fa fa-circle online" style="color:#DAE9DA"></i>
+                </li>
+
+            </ul>
+
+        </div> <!-- end chat-history -->
+
+        <div class="chat-message clearfix chat-zone">
+            <form id="form-send-message" action="">
+                <input type="text" id="input-message" placeholder="Type your message" autocomplete="off">
+                <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-file-image-o"></i>
+                <button>Gửi <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div> <!-- end chat-message -->
+
+    </div> <!-- end chat -->
+
+</div> <!-- end container -->
+
+<script>
+    $(window).on('load', function() {
+        /*------------------
+            Preloder
+        --------------------*/
+        $(".loader").fadeOut();
+        $("#preloder").delay(1000).fadeOut("slow");
+
+    });
+
+    function markStar(){
+           $('.far').toggleClass('fas')
+    }
+
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://localhost:63342/chat-room/script.js"></script>
+
+</body>
+</html>
