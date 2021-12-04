@@ -311,13 +311,23 @@ body {
 }
 
 .form-login button:hover {
-    background-color: #45a049;
+    background-color: #62cb67;
+    transition: 1s;
+    box-shadow: 3px 8px 15px #a2acfd inset;
 }
+.form-login button:active{
+    transition: 0s;
+    -webkit-filter: brightness(70%);
+}
+
 .login-avatar {
     vertical-align: middle;
     width: 65px;
     height: 65px;
     border-radius: 100%;
+    display: inline;
+    position: relative;
+    border-bottom: 1px dotted black;
 
 }
 .login-avatar:hover{
@@ -432,3 +442,44 @@ body {
         border-left-color: transparent;
     }
 }
+
+#all-user-list .mark-important{
+    color: yellow;
+}
+
+
+
+.tags {
+    display: inline;
+    position: relative;
+}
+
+.tags:hover:after {
+    background: #333;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 5px;
+    bottom: -60px;
+    color: #fff;
+    content: attr(gloss);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+    transition: 1s;
+    opacity: 1;
+    text-align: center;
+}
+
+.tags:hover:before {
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 0 6px 6px 6px;
+    bottom: -30px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+    transition: 1s;
+}
+

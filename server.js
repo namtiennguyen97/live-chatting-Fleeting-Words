@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    // console.log('New user has been connected!');
 
     socket.on('new-user-connection', (data)=>{
         users[socket.id] = data.username;

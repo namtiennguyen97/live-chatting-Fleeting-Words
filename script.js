@@ -12,7 +12,7 @@ socket.on('new-user', data =>{
         '                         src="'+ data.avatar +'"' +
         '                         alt="avatar"/>' +
         '                    <div class="about">' +
-        '                        <div class="name name-user">'+ data.username +' <i class="far fa-star" onclick="markStar()"></i></div>' +
+        '                        <div class="name name-user">'+ data.username +' <i id="'+ data.token +'" class="far fa-star mark-important" onclick="markStar('+ data.token +')"></i></div>' +
         '                        <div class="status">' +
         '                            <i class="fa fa-circle online"></i> Trực tuyến' +
         '                        </div>' +
@@ -57,7 +57,7 @@ socket.on('user-arr', data =>{
                 '                         src="'+ items.avatar +'"' +
                 '                         alt="avatar"/>' +
                 '                    <div class="about">' +
-                '                        <div class="name name-user">'+ items.username +' <i class="far fa-star" onclick="markStar()"></i></div>' +
+                '                        <div class="name name-user">'+ items.username +' <i id="'+ items.token +'" class="far fa-star mark-important" onclick="markStar('+ items.token +')"></i></div>' +
                 '                        <div class="status">' +
                 '                            <i class="fa fa-circle online"></i> Trực tuyến' +
                 '                        </div>' +
@@ -72,6 +72,7 @@ $('#form-send-message').on('submit', function (e) {
     e.preventDefault();
 })
 
+// render form login khi khong co localStorage
 if (!localStorage.getItem('chat-username')) {
     $('.logout').hide();
     $('.chat-message').hide();
@@ -85,12 +86,13 @@ if (!localStorage.getItem('chat-username')) {
         '<br>' +
         '    <label for="lname"><b>Chọn Avatar tạm thời</b></label>' +
         '<br>' +
-        '<img onclick="chooseAvatar(1)" id="firstAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/a2.gif" alt="Avatar"> ' +
-        '<img onclick="chooseAvatar(2)" id="secondAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/download%20(5).gif" alt="Avatar"> ' +
-        '<img onclick="chooseAvatar(3)" id="thirdAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/avatar2.gif" alt="Avatar"> ' +
-        '<img onclick="chooseAvatar(4)" id="fourthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/9s.gif" alt="Avatar"> ' +
-        '<img onclick="chooseAvatar(5)" id="firthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/asd.gif" alt="Avatar"> ' +
+        '<span class="tags" gloss="Cô nàng A2"><img  onclick="chooseAvatar(1)" id="firstAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/a2.gif" alt="Avatar"></span> ' +
+        '<span class="tags" gloss="Thợ săn 2B"><img  onclick="chooseAvatar(2)" id="secondAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/download%20(5).gif" alt="Avatar"></span> ' +
+        '<span class="tags" gloss="2B Battle"><img  onclick="chooseAvatar(3)" id="thirdAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/avatar2.gif" alt="Avatar"> </span>' +
+        '<span class="tags" gloss="Hacker 9S"><img  onclick="chooseAvatar(4)" id="fourthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/9s.gif" alt="Avatar"></span>' +
+        '<span class="tags" gloss="Cô nàng 2B"><img onclick="chooseAvatar(5)" id="firthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/asd.gif" alt="Avatar"></span>' +
         '<br>' +
+        '<br>'+
         '<span id="validateLogin" class="validateUsername" style="color: #fd7d49"></span>' +
         '    <button id="loginButton" onclick="login()">Đăng nhập <i class="fas fa-key"></i></button>' +
         '</div>');
@@ -349,3 +351,10 @@ function makeid() {
     return result;
 }
 
+
+
+//chat function zone -------------------------------------------
+$('#form-send-message').on('submit', function (e){
+    e.preventDefault();
+    let input = document.getElementById('');
+})

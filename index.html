@@ -161,8 +161,9 @@
 
     });
 
-    function markStar(){
-           $('.far').toggleClass('fas')
+    function markStar(userId){
+        userId = userId.item(0).id;
+           $('#all-user-list #'+ userId + '.far').toggleClass('fas')
     }
 
 </script>
