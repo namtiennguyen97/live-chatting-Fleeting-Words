@@ -1,0 +1,60 @@
+
+#option-zone a{
+    text-decoration: none;
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    right: 28px;
+    height:60px;
+    width: 60px;
+    transform:rotate(-45deg);
+}
+
+#option-zone a i {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    transform:rotate(45deg) translate(3px,0);
+    text-align:center;
+}
+#option-zone a:hover{
+    background-color: #ababab;
+}
+
+#option-zone a:active{
+    background-color: #232323;
+}
+
+.menuDataSS{
+    bottom: 23px;
+}
+
+.dataMenuGuide{
+    bottom: 315px;
+}
+
+.dataMenuLogin{
+    bottom: 415px;
+}
+
+.dataMenuGuide{
+    bottom: 315px;
+}
+
+.dataMenuSound{
+    bottom: 218px;
+}
+
+#dataMenuHome{
+    bottom: 120px;
+}
+
+@media only screen and (max-width: 970px) {
+    #option-zone {
+        visibility: hidden;
+    }
+}

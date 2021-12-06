@@ -482,4 +482,36 @@ body {
     z-index: 99;
     transition: 1s;
 }
+#search-people::placeholder{
+    color: #dcdcdc;
+    font-style: italic;
+}
+
+.avatar-content{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.message-data-name{
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.message-data-name-enemy{
+    font-weight: bold;
+}
+
+.active-room-tab{
+    background-color: #6d6d6f;
+    cursor: pointer;
+    /*opacity: 0.9;*/
+    /*border: 1px solid rgba(253, 252, 252, 0.5);*/
+    /*box-shadow: 3px 6px #888888;*/
+    transition: 1s;
+    box-shadow: 5px 10px 20px #a2acfd inset;
+}
 

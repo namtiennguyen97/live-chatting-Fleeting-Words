@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
           integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
+    <link rel="stylesheet" href="http://localhost:63342/chat-room/css/buttionOption.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body>
 <!-- Page Preloder -->
@@ -39,15 +40,15 @@
 <div class="container clearfix">
     <div class="people-list" id="people-list">
         <div class="search">
-            <input type="text" placeholder="search"/>
+            <input type="text" id="search-people" placeholder="Tìm kiếm... " style="color: white" />
             <i class="fa fa-search"></i>
         </div>
         <ul class="list" style="list-style: none">
             <span><b> Nhóm chat - (1)</b></span>
-            <li class="clearfix list-online">
+            <li class="clearfix list-online" id="public-room">
                 <img class="avatar-on-the-list"
                      src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/tumblr_p96i9gKKbI1xut6buo1_1280.gif"
-                     alt="avatar"/>
+                     alt="avatar" />
                 <div class="about">
                     <div class="name">Phòng chung <i class="fas fa-home"></i></div>
                     <div class="status">
@@ -81,75 +82,58 @@
         </div> <!-- end chat-header -->
 
         <div class="chat-history" id="chat-history">
-            <ul style="list-style: none">
-                <li class="clearfix">
-                    <div class="message-data align-right">
-                        <span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
-                        <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
-                    </div>
-                    <div class="message other-message float-right">
-                        Hi Vincent, how are you? How is the project coming along?
-                    </div>
-                </li>
-
-                <li>
-                    <div class="message-data">
-                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                        <span class="message-data-time">10:12 AM, Today</span>
-                    </div>
-                    <div class="message my-message">
-                        Are we meeting today? Project has been already finished and I have results to show you.
-                    </div>
-                </li>
-
-                <li class="clearfix">
-                    <div class="message-data align-right">
-                        <span class="message-data-time">10:14 AM, Today</span> &nbsp; &nbsp;
-                        <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
-
-                    </div>
-                    <div class="message other-message float-right">
-                        Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced
-                        any problems at the last phase of the project?
-                    </div>
-                </li>
-
-                <li>
-                    <div class="message-data">
-                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                        <span class="message-data-time">10:20 AM, Today</span>
-                    </div>
-                    <div class="message my-message">
-                        Actually everything was fine. I'm very excited to show this to our team.
-                    </div>
-                </li>
-
-                <li>
-                    <div class="message-data">
-                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                        <span class="message-data-time">10:31 AM, Today</span>
-                    </div>
-                    <i class="fa fa-circle online"></i>
-                    <i class="fa fa-circle online" style="color: #AED2A6"></i>
-                    <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-                </li>
+            <ul style="list-style: none" id="chat-content">
 
             </ul>
+
+            <div class="form-login" id="form-login">
+                <label><b>Bạn cần đăng nhập để truy cập phòng chat</b></label>
+                <br>
+                <input type="text" id="firstname"  placeholder="Tên của bạn.." oninput="checkUsername()">
+                <br>
+                <span id="validateUsername" class="validateUsername" style="color: #fd7d49"></span>
+                <br>
+                <label><b>Chọn Avatar tạm thời</b></label>
+                <br>
+                <span class="tags" gloss="Cô nàng A2"><img  onclick="chooseAvatar(1)" id="firstAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/a2.gif" alt="Avatar"></span>
+                <span class="tags" gloss="Thợ săn 2B"><img  onclick="chooseAvatar(2)" id="secondAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/download%20(5).gif" alt="Avatar"></span>
+                <span class="tags" gloss="Chiến binh 2B"><img  onclick="chooseAvatar(3)" id="thirdAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/avatar2.gif" alt="Avatar"> </span>
+                <span class="tags" gloss="Hacker 9S"><img  onclick="chooseAvatar(4)" id="fourthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/9s.gif" alt="Avatar"></span>
+                <span class="tags" gloss="Sát thủ 2B"><img onclick="chooseAvatar(5)" id="firthAvatar" class="login-avatar" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/newIconAva/asd.gif" alt="Avatar"></span>
+                <br>
+                <br>
+                <span id="validateLogin" class="validateUsername" style="color: #fd7d49"></span>
+                    <button id="loginButton" onclick="login()">Đăng nhập <i class="fas fa-key"></i></button>
+                </div>
 
         </div> <!-- end chat-history -->
 
         <div class="chat-message clearfix chat-zone">
             <form id="form-send-message" action="">
-                <input type="text" id="input-message" placeholder="Type your message" autocomplete="off">
-                <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                <input type="text" id="input-message" placeholder="Nhập nội dung chat ở đây..." autocomplete="off">
+                <i class="fa fa-file-o"></i>
                 <i class="fa fa-file-image-o"></i>
-                <button>Gửi <i class="fas fa-paper-plane"></i></button>
+                <button type="submit">Gửi <i class="fas fa-paper-plane"></i></button>
             </form>
         </div> <!-- end chat-message -->
 
     </div> <!-- end chat -->
 
 </div> <!-- end container -->
+
+
+<!--<div id="guideMsgIndex">haha</div>-->
+
+<!--Option Zone-->
+<div id="option-zone">
+        <a href="javascript:void(0)" id="dataMenuLogin" onclick="logout()"  class="dataMenuLogin"><i id="iconLogin" class="fas fa-sign-in-alt"></i></a>
+        <a href="javascript:void(0)" id="dataMenuGuide" class="dataMenuGuide"><i class="fas fa-user-cog"></i></a>
+        <a href="javascript:void(0)" id="dataMenuSound" class="dataMenuSound"><i class="fas fa-volume-up"></i></a>
+        <a href="javascript:void(0)"  id="dataMenuHome" onclick="topFunction()"><i class="fas fa-home"></i></a>
+        <a href="javascript:void(0)" id="dataMenu" class="menuDataSS"><i class="fas fa-angle-double-up"></i></a>
+</div>
+<!--END OF OPTION ZONE-->
+
 
 <script>
     $(window).on('load', function() {
@@ -161,6 +145,7 @@
 
     });
 
+
     function markStar(userId){
         userId = userId.item(0).id;
            $('#all-user-list #'+ userId + '.far').toggleClass('fas')
@@ -169,6 +154,81 @@
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://localhost:63342/chat-room/script.js"></script>
+<script src="http://localhost:63342/chat-room/optionButton.js"></script>
+<script>
+    function getDateTime(){
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() ;
+        return today = time +' '+ mm + '/' + dd + '/' + yyyy;
+    }
 
+
+    $('#form-send-message').on('submit', function (e){
+        e.preventDefault();
+        let input = document.getElementById('input-message');
+        let userLocalData = JSON.parse(localStorage.getItem('chat-username'));
+        if (input.value){
+            let userData = {
+                'avatar' : userLocalData.avatar,
+                'username' : userLocalData.username,
+                'token' : userLocalData.token,
+                'message' : input.value
+            }
+            socket.emit('chat-msg', userData);
+            input.value = '';
+        }
+    })
+
+    socket.on('chat-msg', data => {
+        let currentUserToken = JSON.parse(localStorage.getItem('chat-username'));
+        if (data.token !== currentUserToken.token){
+            $('#chat-history #chat-content').append('<li class="clearfix">' +
+                '                    <div class="message-data align-right">' +
+                '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
+                '                        <span class="message-data-name-enemy">'+ data.username + '</span> <img class="avatar-content" src="'+ data.avatar +'">' +
+                '                    </div>' +
+                '                    <div class="message other-message float-right">' +
+                ''+ data.message +'' +
+                '                    </div>' +
+                '                </li>');
+                scrollToHeight();
+        } else {
+            $('#chat-history #chat-content').append('<li>' +
+                '                    <div class="message-data">' +
+                '                        <span class="message-data-name"><img class="avatar-content" src="'+ data.avatar + '">'+ 'Bạn' +'</span>' +
+                '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
+                '                    </div>' +
+                '                    <div class="message my-message">' +
+                ''+ data.message +'' +
+                '                    </div>' +
+                '                </li>');
+            scrollToHeight();
+        }
+    })
+
+    function scrollToHeight(){
+        let objDiv = document.getElementById("chat-history");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+
+    //test
+    $('#public-room').click(function (){
+       if (localStorage.getItem('chat-username')){
+            $('#public-room').toggleClass('active-room-tab');
+            socket.emit('public-room');
+           headerPublicRoom();
+           chatBoxShowing();
+       }
+    });
+
+    // socket.on('notification-public', ()=>{
+    //     alert('u have been joined public room!')
+    // });
+
+</script>
 </body>
 </html>

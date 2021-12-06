@@ -48,7 +48,22 @@ io.on('connection', (socket) => {
         totalUser++;
         io.emit('count-total-data', totalUser)
     })
+    // dem so luong user ngay ca khi disconnect hay ngat ket noi
+    io.emit('count-online', totalUser);
 
+    //chat zone
+    socket.on('chat-msg', (data)=>{
+        io.in('public').emit('chat-msg', data)
+    })
+
+    //vao phong public chung
+    socket.on('public-room', (data) => {
+        socket.join('public');
+    })
+    //roi phong
+    socket.on("leave room", function(data) {
+        socket.leave("public");
+    });
 });
 
 server.listen(3000, () => {
