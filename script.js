@@ -20,6 +20,9 @@ socket.on('new-user', data =>{
         '                </li>');
 })
 
+//ton tai user
+
+
 // dem so luong nguoi sau khi dang nhap
 socket.on('count-total-data', data =>{
     $('#count-user-online').text(data);
@@ -94,7 +97,17 @@ function checkUsername() {
         $('#chat-history #validateUsername').text('Tên không được quá 15 kí tự!');
         input.value = '';
     }
+    socket.emit('check-user-exist');
+    socket.on('check-user-exist-arr', data => {
+        data.forEach(items => {
+            if (input.value === items.username){
+                $('#chat-history #validateLogin').text('Tên người dùng này đã có người sử dụng!');
+                input.value = '';
+            }
+        })
+    })
 }
+
 
 //header truoc khi login
 function chatHeaderEmptyLogin() {
@@ -179,7 +192,7 @@ function login() {
         chatHeaderEmptyLogin();
         $('.logout').show();
         showToastrLogin();
-        socket.emit('new-user-connection', dataLogin);
+        socket.emit('user-login', dataLogin);
         socket.emit('make-count-user');
     }
 }

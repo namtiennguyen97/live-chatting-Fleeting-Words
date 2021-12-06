@@ -17,11 +17,12 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
 
-    socket.on('new-user-connection', (data)=>{
+    socket.on('user-login', (data)=>{
         users[socket.id] = data.username;
         token[socket.id] = data.token;
         socket.broadcast.emit('new-user', data)
         dataUser.push(data);
+
     })
     //tra ra danh sach user - main list
     socket.emit('user-arr', dataUser)
@@ -30,7 +31,6 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('user-disconnected', users[socket.id])
         delete users[socket.id]
     });
-
 
     socket.on('logout', ()=>{
         totalUser--;
@@ -61,11 +61,15 @@ io.on('connection', (socket) => {
         socket.join('public');
     })
 
-
     //roi phong
     socket.on("leave room", function(data) {
         socket.leave("public");
     });
+
+    //check username ton tai hay chua
+    socket.on('check-user-exist', () => {
+        socket.emit('check-user-exist-arr', dataUser)
+    })
 });
 
 server.listen(3000, () => {
