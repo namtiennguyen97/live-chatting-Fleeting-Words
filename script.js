@@ -81,6 +81,10 @@ if (!localStorage.getItem('chat-username')) {
     $('.chat-message').hide();
     chatHeaderEmptyLogin();
     $('#form-login').show();
+    $('#chat-content').hide();
+}
+else {
+    blankPage()
 }
 
 //validate username
@@ -183,6 +187,7 @@ function login() {
 function blankPage(){
     $('#chat-content').hide();
     $('.chat-message').hide();
+    $('#form-login').hide();
 }
 
 function chatBoxShowing(){

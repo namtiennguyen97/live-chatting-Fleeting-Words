@@ -60,6 +60,8 @@ io.on('connection', (socket) => {
     socket.on('public-room', (data) => {
         socket.join('public');
     })
+
+
     //roi phong
     socket.on("leave room", function(data) {
         socket.leave("public");
