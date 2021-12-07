@@ -18,6 +18,7 @@ socket.on('new-user', data =>{
         '                        </div>' +
         '                    </div>' +
         '                </li>');
+    soundOnlineAlert();
 })
 
 //ton tai user
@@ -121,11 +122,10 @@ function chatHeaderEmptyLogin() {
 function headerPublicRoom(){
     $('.chat-header').html('<img class="avatar-chat" src="https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/tumblr_p96i9gKKbI1xut6buo1_1280.gif"\n' +
         '                 alt="avatar"/>' +
-        '\n' +
         '            <div class="chat-about">' +
         '                <div class="chat-with">Phòng chung <i class="fas fa-home"></i></div>' +
         '                <div class="chat-num-messages">Nơi tất cả mọi người chia sẻ- Phòng hội nghị ;)</div>' +
-        '            </div>\n' +
+        '            </div>' +
         '            <i class="fa fa-star"></i>');
 }
 //khung chat sau khi login
@@ -213,9 +213,13 @@ function chatBoxShowing(){
 //logout delete storage key
 function logout(){
     socket.emit('logout');
-    socket.emit('leave room');
+    // socket.emit('leave room');
+    soundOnlineDisconnect();
     localStorage.removeItem('chat-username');
-    window.location.reload();
+    $('.logout .logoutBtn').text('Đang đăng xuất...');
+    setTimeout(function(){
+        window.location.reload();
+        }, 3000);
 }
 
 function showToastrLogin(){
@@ -224,6 +228,14 @@ function showToastrLogin(){
 // sound zone
 function soundOnlineAlert(){
     let soundAlert = $('#msg-receive-online')[0];
+    soundAlert.play();
+}
+function soundOnlineDisconnect(){
+    let soundAlert = $('#msg-receive-disconnected')[0];
+    soundAlert.play();
+}
+function soundSendMessage(){
+    let soundAlert = $('#msg-receive-sound')[0];
     soundAlert.play();
 }
 
@@ -243,4 +255,99 @@ function makeid() {
 
 
 //chat function zone -------------------------------------------
+$(window).on('load', function() {
+    /*------------------
+        Preloder
+    --------------------*/
+    $(".loader").fadeOut();
+    $("#preloder").delay(1000).fadeOut("slow");
+
+});
+
+// ngan ko cho right click
+document.addEventListener('contextmenu', event => event.preventDefault());
+//ngan khong cho f12 xem src nguon
+$(document).keydown(function (event) {
+    if (event.keyCode == 123) { // Prevent F12
+        return false;
+    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
+        return false;
+    }
+});
+
+function markStar(userId){
+    userId = userId.item(0).id;
+    $('#all-user-list #'+ userId + '.far').toggleClass('fas')
+}
+
+
+function getDateTime(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() ;
+    return today = time +' '+ mm + '/' + dd + '/' + yyyy;
+}
+
+
+$('#form-send-message').on('submit', function (e){
+    e.preventDefault();
+    let input = document.getElementById('input-message');
+    let userLocalData = JSON.parse(localStorage.getItem('chat-username'));
+    if (input.value){
+        let userData = {
+            'avatar' : userLocalData.avatar,
+            'username' : userLocalData.username,
+            'token' : userLocalData.token,
+            'message' : input.value
+        }
+        socket.emit('chat-msg', userData);
+        input.value = '';
+    }
+})
+
+socket.on('chat-msg', data => {
+    soundSendMessage();
+    let currentUserToken = JSON.parse(localStorage.getItem('chat-username'));
+    if (data.token !== currentUserToken.token){
+        $('#chat-history #chat-content').append('<li class="clearfix">' +
+            '                    <div class="message-data align-right">' +
+            '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
+            '                        <span class="message-data-name-enemy">'+ data.username + '</span> <img class="avatar-content" src="'+ data.avatar +'">' +
+            '                    </div>' +
+            '                    <div class="message other-message float-right">' +
+            ''+ data.message +'' +
+            '                    </div>' +
+            '                </li>');
+        scrollToHeight();
+    } else {
+        $('#chat-history #chat-content').append('<li>' +
+            '                    <div class="message-data">' +
+            '                        <span class="message-data-name"><img class="avatar-content" src="'+ data.avatar + '">'+ 'Bạn' +'</span>' +
+            '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
+            '                    </div>' +
+            '                    <div class="message my-message">' +
+            ''+ data.message +'' +
+            '                    </div>' +
+            '                </li>');
+        scrollToHeight();
+    }
+})
+
+function scrollToHeight(){
+    let objDiv = document.getElementById("chat-history");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+
+
+$('#public-room').click(function (){
+    if (localStorage.getItem('chat-username')){
+        $('#public-room').toggleClass('active-room-tab');
+        socket.emit('public-room');
+        headerPublicRoom();
+        chatBoxShowing();
+    }
+});
 

@@ -136,103 +136,11 @@
 
 
 <script>
-    $(window).on('load', function() {
-        /*------------------
-            Preloder
-        --------------------*/
-        $(".loader").fadeOut();
-        $("#preloder").delay(1000).fadeOut("slow");
 
-    });
-
-
-    function markStar(userId){
-        userId = userId.item(0).id;
-           $('#all-user-list #'+ userId + '.far').toggleClass('fas')
-    }
 
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://localhost:63342/chat-room/script.js"></script>
 <script src="http://localhost:63342/chat-room/optionButton.js"></script>
-<script>
-    function getDateTime(){
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        let yyyy = today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() ;
-        return today = time +' '+ mm + '/' + dd + '/' + yyyy;
-    }
-
-
-    $('#form-send-message').on('submit', function (e){
-        e.preventDefault();
-        let input = document.getElementById('input-message');
-        let userLocalData = JSON.parse(localStorage.getItem('chat-username'));
-        if (input.value){
-            let userData = {
-                'avatar' : userLocalData.avatar,
-                'username' : userLocalData.username,
-                'token' : userLocalData.token,
-                'message' : input.value
-            }
-            socket.emit('chat-msg', userData);
-            input.value = '';
-        }
-    })
-
-    socket.on('chat-msg', data => {
-        let currentUserToken = JSON.parse(localStorage.getItem('chat-username'));
-        if (data.token !== currentUserToken.token){
-            $('#chat-history #chat-content').append('<li class="clearfix">' +
-                '                    <div class="message-data align-right">' +
-                '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
-                '                        <span class="message-data-name-enemy">'+ data.username + '</span> <img class="avatar-content" src="'+ data.avatar +'">' +
-                '                    </div>' +
-                '                    <div class="message other-message float-right">' +
-                ''+ data.message +'' +
-                '                    </div>' +
-                '                </li>');
-                scrollToHeight();
-        } else {
-            $('#chat-history #chat-content').append('<li>' +
-                '                    <div class="message-data">' +
-                '                        <span class="message-data-name"><img class="avatar-content" src="'+ data.avatar + '">'+ 'Bạn' +'</span>' +
-                '                        <span class="message-data-time">'+ getDateTime() +'</span>' +
-                '                    </div>' +
-                '                    <div class="message my-message">' +
-                ''+ data.message +'' +
-                '                    </div>' +
-                '                </li>');
-            scrollToHeight();
-        }
-    })
-
-    function scrollToHeight(){
-        let objDiv = document.getElementById("chat-history");
-        objDiv.scrollTop = objDiv.scrollHeight;
-    }
-
-
-    //test
-    $('#public-room').click(function (){
-       if (localStorage.getItem('chat-username')){
-            $('#public-room').toggleClass('active-room-tab');
-            socket.emit('public-room');
-           headerPublicRoom();
-           chatBoxShowing();
-       }
-    });
-
-
-    // socket.on('user-exist', name => {
-    //     alert(name + ' da co nguoi su dung')
-    // })
-    // socket.on('notification-public', ()=>{
-    //     alert('u have been joined public room!')
-    // });
-
-</script>
 </body>
 </html>

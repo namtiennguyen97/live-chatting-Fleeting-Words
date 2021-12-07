@@ -5,13 +5,13 @@
     color: white;
     padding: 16px 20px;
     border: none;
-    cursor: pointer;
     opacity: 0.8;
     position: fixed;
     right: 28px;
     height:60px;
     width: 60px;
     transform:rotate(-45deg);
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
 }
 
 #option-zone a i {

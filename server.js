@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
         totalUser++;
         io.emit('count-total-data', totalUser)
     })
+
     // dem so luong user ngay ca khi disconnect hay ngat ket noi
     io.emit('count-online', totalUser);
 
@@ -71,6 +72,7 @@ io.on('connection', (socket) => {
         socket.emit('check-user-exist-arr', dataUser)
     })
 });
+
 
 server.listen(3000, () => {
     console.log('server is running at http://localhost:3000/');

@@ -3,6 +3,7 @@
     box-sizing: border-box;
 }
 body {
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
     /*background: #c5ddeb;*/
     background-image: url("https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/background.gif");
     /*background-size: cover;*/
@@ -12,6 +13,18 @@ body {
     color: white;
     /*font-family: sans-serif*/
 }
+
+button{
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
+}
+
+input[type=button]{
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
+}
+label{
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
+}
+
 .container {
     margin: 0 auto;
     width: 750px;
@@ -163,7 +176,7 @@ body {
 .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
     font-size: 16px;
     color: gray;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
 }
 .chat .chat-message button {
     float: right;
@@ -171,7 +184,7 @@ body {
     font-size: 16px;
     text-transform: uppercase;
     border: none;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
     font-weight: bold;
     height: 30px;
     background: #f2f5f8;
@@ -213,7 +226,7 @@ body {
 /*CUSTOM-----------------------------------------------------------*/
 .list-online:hover{
     background-color: #6d6d6f;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
     /*opacity: 0.9;*/
     /*border: 1px solid rgba(253, 252, 252, 0.5);*/
     /*box-shadow: 3px 6px #888888;*/
@@ -225,14 +238,14 @@ body {
 
 .list-online:active{
     background-color: #cbc8c8;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
     border-radius: 2%;
     transition: 0s;
 }
 
 .list-online > .avatar-on-the-list:hover{
     background-color: #88888b;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
 }
 .avatar-on-the-list{
     border-radius: 50%;
@@ -307,7 +320,6 @@ body {
     margin: 8px 0;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
 }
 
 .form-login button:hover {
@@ -507,7 +519,7 @@ body {
 
 .active-room-tab{
     background-color: #6d6d6f;
-    cursor: pointer;
+    cursor: url(https://raw.githubusercontent.com/namtiennguyen97/UpLoadImage/master/cursor.png), auto;
     /*opacity: 0.9;*/
     /*border: 1px solid rgba(253, 252, 252, 0.5);*/
     /*box-shadow: 3px 6px #888888;*/
