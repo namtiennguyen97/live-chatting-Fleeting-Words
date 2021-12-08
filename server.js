@@ -35,6 +35,9 @@ io.on('connection', (socket) => {
 
     socket.on('logout', ()=>{
         totalUser--;
+        if (totalUser < 0){
+            totalUser = 0;
+        }
         io.emit('logout-user', dataUser)
         io.emit('count-user-down', totalUser)
     })
